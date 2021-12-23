@@ -10,12 +10,10 @@ runtime:
     extensions:
         - redis
 
-build:
-    flavor: composer
-
 hooks:
     build: |
         set -e
+        composer install --ignore-platform-req=ext-sodium
     deploy: |
         set -e
         php ./drush/platformsh_generate_drush_yml.php

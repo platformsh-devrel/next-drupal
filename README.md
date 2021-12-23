@@ -98,6 +98,17 @@ Reference issues:
     curl -s https://raw.githubusercontent.com/platformsh-templates/drupal9/master/web/sites/default/settings.platformsh.php >> web/sites/default/settings.platformsh.php
     ```
 
+1. Update build
+
+    *Remove `build.flavor` block, and modify the `hooks.build` attribute of `.platform.app.yaml`:
+
+    ```yaml
+    hooks:
+        build: |
+            set -e
+            composer install --ignore-platform-req=ext-sodium
+    ```
+
 1. Create GitHub repo
 
     ```bash

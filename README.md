@@ -47,11 +47,28 @@ Reference issues:
         to: "https://backend.{default}/"
     ```
 
+1. Modify `composer.json` configuration
+
+    *Add the following to `extra`:*
+
+    ```bash
+    "extra": {
+        "patches": {
+            "drupal/subrequests": {
+                "Get same results on different request": "https://www.drupal.org/files/issues/2019-07-18/change_request_type-63049395-09.patch"
+            },
+            "drupal/decoupled_router": {
+                "Unable to resolve path on node in other language than default": "https://www.drupal.org/files/issues/2021-05-05/3111456-34.patch"
+            }
+        },
+    }
+    ```
+
 1. Install `drupal/next` and Platform.sh modules
 
     ```bash
     cd drupal
-    composer require drupal/next platformsh/config-reader drush/drush drupal/redis
+    composer require drupal/next platformsh/config-reader drush/drush drupal/redis cweagans/composer-patches
     ```
 
 1. Get Platform.sh-specific files
@@ -85,4 +102,21 @@ Reference issues:
 
     ```bash
     gh repo create next-drupal
+    git add .
+    git commit -m "Initial Drupal site."
+    git push origin main
     ```
+
+1. Create a project
+
+    ```bash
+    platform project:create --title next-drupal --region us-4.platform.sh --plan medium --environments 3 --storage 5 --default-branch main
+    ```
+
+1. Integrate project with GitHub
+
+    ```bash
+    platform integration:add --type=github --project=PLATFORMSH_PROJECT_ID --token=GITHUB-USER-TOKEN --repository=USER/REPOSITORY
+    ```
+
+

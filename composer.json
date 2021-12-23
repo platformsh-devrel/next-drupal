@@ -1,0 +1,5 @@
+{
+    "require": {
+        "cweagans/composer-patches": "^1.7"
+    }
+}

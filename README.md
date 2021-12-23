@@ -98,15 +98,23 @@ Reference issues:
     curl -s https://raw.githubusercontent.com/platformsh-templates/drupal9/master/web/sites/default/settings.platformsh.php >> web/sites/default/settings.platformsh.php
     ```
 
-1. Update build
+1. Update `.platform.app.yaml`
 
-    *Remove `build.flavor` block, and modify the `hooks.build` attribute of `.platform.app.yaml`:
+    *Remove `build.flavor` block, modify the `hooks.build` attribute, and bump the PHP version in `.platform.app.yaml`:
 
     ```yaml
+    type: 'php:8.1'
+    
     hooks:
         build: |
             set -e
             composer install --ignore-platform-req=ext-sodium
+    ```
+
+1. Update
+
+    ```bash
+    composer update
     ```
 
 1. Create GitHub repo
